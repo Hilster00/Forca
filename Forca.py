@@ -3,6 +3,7 @@ import unicodedata
 
 #bloco que inicializa as variaveis
 palavras=['Banana','Bacon','Cartão','Jogo','Pão','Bolo','Leão','Formiga','Kiwi']
+lista_letras=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 palavra=choice(palavras)
 resposta=''
 letras_chutadas=[]
@@ -17,18 +18,21 @@ while resposta != palavra:
     #bloco de interação com o jogador       
     print(f'Você tem {vidas} vidas')    
     chute=input('Digite o seu palpite:')
+
+    #limpa acentuação
+    letra_limpa=chute
+    letra_limpa = unicodedata.normalize("NFD", letra_limpa)        
+    letra_limpa = letra_limpa.encode("ascii", "ignore")
+    letra_limpa = letra_limpa.decode("utf-8")
+    letra_limpa=letra_limpa.lower()
     
     #verifica se o chute foi valido
-    if len(chute) == 1 and chute!=' ':
+    if letra_limpa in lista_letras:
         
-        #limpa acentuação
-        letra_limpa=chute
-        letra_limpa = unicodedata.normalize("NFD", letra_limpa)        
-        letra_limpa = letra_limpa.encode("ascii", "ignore")
-        letra_limpa = letra_limpa.decode("utf-8")
         
-        if letra_limpa.lower() in letras_chutadas:
-            print(f"Você já tinha escolhido '{letra_limpa.lower()}'")
+        
+        if letra_limpa in letras_chutadas:
+            print(f"Você já tinha escolhido '{letra_limpa}'")
         else:
 
             #limpa acentuação da palavra
@@ -37,19 +41,19 @@ while resposta != palavra:
             palavra_limpa = palavra_limpa.encode("ascii", "ignore")
             palavra_limpa = palavra_limpa.decode("utf-8")
            
-            if letra_limpa.lower() in palavra_limpa.lower():                    
-                print(f"Parabéns! '{letra_limpa.lower()}' está na palavra")           
+            if letra_limpa in palavra_limpa.lower():                    
+                print(f"Parabéns! '{letra_limpa}' está na palavra")           
             else:
-                print(f"Que pena! '{letra_limpa.lower()}' não está na palavra")
+                print(f"Que pena! '{letra_limpa}' não está na palavra")
                 vidas-=1
-            letras_chutadas.append(letra_limpa.lower())
+            letras_chutadas.append(letra_limpa)
             if vidas == 0:
                 print(f"Que pena, você perdeu, a palavra era '{palavra}'")
                 break
             
     #bloco chute invalido   
     else:
-        print(f"'{chute.lower()}' não é uma opcao valida")
+        print(f"'{letra_limpa}' não é uma opcao valida")
         
 
          
