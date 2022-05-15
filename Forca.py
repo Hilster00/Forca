@@ -13,7 +13,6 @@ print("#"*len(palavra))
 
 #jogo
 while resposta != palavra:
-
     
     #bloco de interação com o jogador       
     print(f'Você tem {vidas} vidas')    
@@ -27,9 +26,7 @@ while resposta != palavra:
     letra_limpa=letra_limpa.lower()
     
     #verifica se o chute foi valido
-    if letra_limpa in lista_letras:
-        
-        
+    if letra_limpa in lista_letras:        
         
         if letra_limpa in letras_chutadas:
             print(f"Você já tinha escolhido '{letra_limpa}'")
@@ -54,8 +51,6 @@ while resposta != palavra:
     #bloco chute invalido   
     else:
         print(f"'{letra_limpa}' não é uma opcao valida")
-        
-
          
     #bloco que atualiza a palavra encontrada e printa na tela
     resposta=''
